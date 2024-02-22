@@ -6,13 +6,34 @@ const port = 3000
 const {connection} = require("./db/db_config");
 
 app.get('/', (req, res) => {
-    connection.query(`SELECT * FROM movie_data`, (err, results)=>{
+    let userInput = req.query.id;
+    let userInput2 = req.query.language;
+    connection.query(`DELETE from movie_data WHERE id =${userInput}`, (err, results)=>{
         if (err){
             console.log(`error in query!`)
-            res.send(`error in db`)
+            // res.send(`error in db`)
         }
         else {
-            res.send(results);
+            console.log(results)
+        }
+    })
+
+    connection.query(`SELECT * from movie_data where language = "${userInput2}"`, (err,results) => {
+        if (err){
+            console.log(`error in query!`)
+        }
+        else {
+            res.send(results)
+        }
+    })
+
+    connection.query(`SELECT * from movie_data`, (err,results) => {
+        if (err){
+            console.log(`error in query!`)
+        }
+        else {
+            // res.send(results)
+            console.log(results)
         }
     })
 });
