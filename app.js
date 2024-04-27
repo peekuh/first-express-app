@@ -31,6 +31,8 @@ app.post('/post', (req, res) => {
     const language = req.body.language;
     const createdAt = new Date();
 
+    console.log(movieTitle)
+
     connection.query(
         'INSERT INTO movie_data (title, release_year, language, created_at) VALUES (?, ?, ?, ?)',
         [movieTitle, releaseYear, language, createdAt],
@@ -45,6 +47,26 @@ app.post('/post', (req, res) => {
         }
     );
 });
+
+app.post('/delete', (req, res) => {
+    const movieTitle = req.body.title;
+    const releaseYear = req.body.year;
+    const language = req.body.language;
+    
+    connection.query('delete from movie_data where title = ? AND release_year = ?',
+                    [movieTitle, releaseYear],
+                    (err,result) => {
+                        if(err) {
+                            console.error('error deleting movie', err)
+                            return res.status(500).json({error : 'failed to delete movie'})
+                        }
+                        else {
+                            console.log('movie deleted :', movieTitle)
+                            res.json({message: 'movie deleted successfully'})
+                        }
+                    })
+                }
+            )
 
     // let userInput = req.query.id;
     // let userInput2 = req.query.match;

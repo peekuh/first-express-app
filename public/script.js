@@ -1,8 +1,10 @@
-document.addEventListener('DOMContentLoaded', fetchData);
-
-function redirectToPage() {
+function redirectToAddPage() {
     // Replace 'page.html' with the URL of the page you want to redirect to
     window.location.href = 'add-movie.html';
+}
+function redirectToDeletePage() {
+    // Replace 'page.html' with the URL of the page you want to redirect to
+    window.location.href = 'delete-movie.html';
 }
 
 async function fetchData() {
@@ -19,9 +21,13 @@ async function fetchData() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const movieForm = document.getElementById('movieForm');
+    console.log('DOM fully loaded and parsed');
 
-    movieForm.addEventListener('submit', function(event) {
+    fetchData();
+    const AddmovieForm = document.getElementById('AddMovieForm');
+
+    AddmovieForm.addEventListener('submit', function(event) {
+        console.log('add form submitted');
         event.preventDefault();  // Prevent default form submission
         
         const movieTitle = document.getElementById('movieTitle').value;
@@ -51,5 +57,45 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Failed to add movie. Please try again.');
         });
     });
+
+    //delete operation
+
+    const DeleteMovieForm = document.getElementById('DeleteMovieForm1')
+    console.log(document.getElementById('DeleteMovieForm'));
+    DeleteMovieForm.addEventListener('submit', function(event){
+        console.log('delete form submitted');
+        event.preventDefault();
+        
+        const movieTitle = document.getElementById('movieTitle').value;
+        const releaseYear = document.getElementById('releaseYear').value;
+        const language = document.getElementById('language').value;
+    
+        const deleteData = {
+            title : movieTitle,
+            year : releaseYear,
+            language : language
+        }
+    
+        console.log(deleteData)
+    
+        fetch('http://localhost:3000/delete', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(deleteData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('data send to backend', data)
+            alert('movie deleted successfully')
+        })
+    
+        .catch(error => {
+            console.log('error sending delete data to backend', error)
+            alert('failed to delete movie. Please try again')
+        })
+    })
+
 });
 
