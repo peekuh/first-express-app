@@ -24,39 +24,39 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
 
     fetchData();
-    const AddmovieForm = document.getElementById('AddMovieForm');
+    // const AddmovieForm = document.getElementById('AddMovieForm');
 
-    AddmovieForm.addEventListener('submit', function(event) {
-        console.log('add form submitted');
-        event.preventDefault();  // Prevent default form submission
+    // AddmovieForm.addEventListener('submit', function(event) {
+    //     console.log('add form submitted');
+    //     event.preventDefault();  // Prevent default form submission
         
-        const movieTitle = document.getElementById('movieTitle').value;
-        const releaseYear = document.getElementById('releaseYear').value;
-        const language = document.getElementById('language').value;
+    //     const movieTitle = document.getElementById('movieTitle').value;
+    //     const releaseYear = document.getElementById('releaseYear').value;
+    //     const language = document.getElementById('language').value;
 
-        const data = {
-            movieTitle,
-            releaseYear,
-            language
-        };
+    //     const data = {
+    //         movieTitle,
+    //         releaseYear,
+    //         language
+    //     };
 
-        fetch('http://localhost:3000/post', {         //fetch is the js method used to communicate with the backend by making HTTP requests
-            method: 'POST',                           //fetch('url', 'options') options: describe the nature of the request being sent 
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data sent to backend:', data);
-            alert('Movie added successfully');
-        })
-        .catch(error => {
-            console.error('Error sending data to backend:', error);
-            alert('Failed to add movie. Please try again.');
-        });
-    });
+    //     fetch('http://localhost:3000/post', {         //fetch is the js method used to communicate with the backend by making HTTP requests
+    //         method: 'POST',                           //fetch('url', 'options') options: describe the nature of the request being sent 
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(data)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('Data sent to backend:', data);
+    //         alert('Movie added successfully');
+    //     })
+    //     .catch(error => {
+    //         console.error('Error sending data to backend:', error);
+    //         alert('Failed to add movie. Please try again.');
+    //     });
+    // });
 
     //delete operation
 
